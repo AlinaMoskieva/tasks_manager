@@ -4,10 +4,15 @@ html
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
     title TasksManager
     = csrf_meta_tags
-    
+
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    p.notice= notice
-    p.alert= alert
+    = render "application/navbar"
+
+    .container
+      - flash.each do |type, message|
+        div class=("alert alert-#{type == "notice" ? "info" : "danger"} fade in") 
+          button.close data-dismiss="alert"  ×
+          = message
     = yield
