@@ -1,0 +1,19 @@
+table(class="table")
+  thead
+    tr
+      th Description
+      th Status
+      th Project
+      th
+      th
+      th
+
+  tbody
+    - @tasks.each do |task|
+      tr
+        td = preview_description(task)
+        td = task_status(task)
+        td = project_name(task)
+        td = link_to "Show", task
+        td = link_to "Edit", edit_task_path(task)
+        td = link_to "Destroy", task, data: { confirm: "Are you sure?" }, method: :delete
