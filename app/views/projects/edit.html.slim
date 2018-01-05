@@ -1,0 +1,11 @@
+.row
+  .col-md-6.col-md-offset-3
+    .col-md-6.col-md-offset-3
+      .text-center
+        h1 Editing project
+        hr/
+    .col-md-10.col-md-offset-1
+      = render "form"
+    .col-md-10.col-md-offset-1
+      br
+      = link_to " Back to #{@project.title}", @project, class: "btn btn-warning"
