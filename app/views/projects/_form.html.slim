@@ -1,0 +1,14 @@
+= form_for @project do |f|
+  - if @project.errors.any?
+    #error_explanation
+      div class=("alert alert-danger fade in") 
+        button.close data-dismiss="alert"  ×
+        h2 = "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+        ul
+          - @project.errors.full_messages.each do |message|
+            li = message
+  .form-group
+    = f.label :title
+    = f.text_field :title, autofocus: true, class: "form-control"
+  .col-md-3.col-md-offset-4
+    .actions = f.submit class: "btn btn-info"

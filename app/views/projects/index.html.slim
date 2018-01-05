@@ -1,0 +1,23 @@
+.row
+  .col-md-6.col-md-offset-3
+    .text-center
+      h1 Listing projects
+
+    table(class="table")
+      thead
+        tr
+          th Title
+          th
+          th
+          th
+
+      tbody
+        - @projects.each do |project|
+          tr
+            td = project.title
+            td = link_to "Show", project
+            td = link_to "Edit", edit_project_path(project)
+            td = link_to "Destroy", project, data: { confirm: "Are you sure?" }, method: :delete
+
+    br
+    = link_to "New Project", new_project_path, class: "btn btn-info"
