@@ -1,0 +1,7 @@
+.row
+  .col-md-6.col-md-offset-3
+    .text-center
+      h1 My tasks
+
+    = render "tasks_list"
+    = link_to "New Task", new_task_path, class: "btn btn-info"
