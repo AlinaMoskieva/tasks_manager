@@ -13,6 +13,6 @@ module TasksHelper
   end
 
   def select_project_collection
-    current_user.projects.map {|p| [p.title, p.id]}
+    current_user.projects.map { |p| [p.title, p.id] }
   end
 end
