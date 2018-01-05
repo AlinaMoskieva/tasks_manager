@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :tasks
+  resources :tasks do
+    resources :comments, shallow: true
+  end
   resources :projects
 
   devise_for :users

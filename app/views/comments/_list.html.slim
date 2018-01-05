@@ -1,0 +1,9 @@
+- @comments.each do |comment|
+  p= autor(comment)
+  p= comment.text
+  p= created_at(comment)
+  .text-right
+    => link_to "Destroy", comment, method: :delete, class: "btn btn-danger"
+    =< link_to "Edit", edit_comment_path(comment), class: "btn btn-warning"
+  hr/
+

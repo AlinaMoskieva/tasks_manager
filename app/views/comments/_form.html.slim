@@ -1,0 +1,13 @@
+= form_for([@task, @comment]) do |f|
+  - if @comment.errors.any?
+    #error_explanation
+      div class=("alert alert-danger fade in") 
+        button.close data-dismiss="alert"  ×
+        h2 = "#{pluralize(@comment.errors.count, "error")} prohibited this comment from being saved:"
+        ul
+          - @comment.errors.full_messages.each do |message|
+            li = message
+  .form-group
+    = f.label :text
+    = f.text_area :text, rows: 5, autofocus: true, class: "form-control"
+  .actions = f.submit class: "btn btn-info"
