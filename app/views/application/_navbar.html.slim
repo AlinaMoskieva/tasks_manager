@@ -6,10 +6,12 @@ nav.navbar.navbar-light(style="background-color: #F7F7F9;")
         span.icon-bar
         span.icon-bar
         span.icon-bar
-        = link_to 'Project', root_path, :class => 'navbar-brand'
+        = link_to "Project", root_path, :class => "navbar-brand"
     #navbar.navbar-collapse.collapse
       ul.nav.navbar-nav
         li = link_to "Tasks manager", root_path
+        li = link_to "My projects", projects_path
+        li= link_to "My tasks", tasks_path
       ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           li = link_to "Sign out", destroy_user_session_path, method: :delete

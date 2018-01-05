@@ -1,0 +1,21 @@
+= form_for @task do |f|
+  - if @task.errors.any?
+    #error_explanation
+      div class=("alert alert-danger fade in") 
+        button.close data-dismiss="alert"  ×
+        h2 = "#{pluralize(@task.errors.count, "error")} prohibited this task from being saved:"
+        ul
+          - @task.errors.full_messages.each do |message|
+            li = message
+
+  .form-group
+    = f.label :description
+    = f.text_area :description, rows: 8, autofocus: true, class: "form-control"
+  .form-group
+    = f.label :project_id, "Choose project"
+    = f.select(:project_id, select_project_collection, { include_blank: "Without project" }, { class: "form-control" })
+  .form-check
+    = f.check_box :status, class: "form-check-input"
+    = f.label :status, "Completed", class: "form-check-label"
+  .col-md-3.col-md-offset-4
+    .actions = f.submit class: "btn btn-info"
