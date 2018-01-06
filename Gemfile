@@ -8,6 +8,7 @@ end
 ruby '2.4.2'
 
 gem "rails", "~> 5.1.4"
+gem "rails_admin", "~> 1.2"
 gem "pg", "~> 0.18"
 gem "puma", "~> 3.7"
 gem "bootstrap-sass", "~> 3.3.7"
