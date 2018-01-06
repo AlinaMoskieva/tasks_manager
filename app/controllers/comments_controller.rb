@@ -1,18 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: [:edit, :update, :destroy]
   before_action :set_task, only: [:create]
-
-
-  def index
-    @comments = Comment.all
-  end
-
-  def show
-  end
-
-  def new
-    @comment = Comment.new
-  end
 
   def edit
   end
