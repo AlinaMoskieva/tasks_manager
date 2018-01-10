@@ -4,9 +4,9 @@ module Api
       before_action :set_project, only: :show
 
       def create
-        @project = Project.new(project_params)
-        @project.user = @current_user
+        return respond_with_unauthorized if @current_user.blank?
 
+        build_project
         if @project.save
           render json: @project
         else
@@ -29,6 +29,11 @@ module Api
 
         def project_params
           params.permit(:title)
+        end
+
+        def build_project
+          @project = Project.new(project_params)
+          @project.user = @current_user
         end
     end
   end

@@ -4,9 +4,9 @@ module Api
       before_action :set_task, only: [:show, :destroy]
 
       def create
-        @task = Task.new(task_params)
-        @task.user = @current_user
+        return respond_with_unauthorized if @current_user.blank?
 
+        build_task
         if @task.save
           render json: @task
         else
@@ -19,7 +19,7 @@ module Api
       end
 
       def destroy
-        return respond_with_error(@task) if @current_user.blank?
+        return respond_with_unauthorized if @current_user.blank?
 
         @task.destroy
         render json: {}, status: :no_content
@@ -33,6 +33,11 @@ module Api
 
         def set_task
           @task = Task.find(params[:id])
+        end
+
+        def build_task
+          @task = Task.new(task_params)
+          @task.user = @current_user
         end
     end
   end

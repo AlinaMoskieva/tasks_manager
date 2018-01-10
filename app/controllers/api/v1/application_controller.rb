@@ -8,11 +8,16 @@ module Api
       end
 
       def respond_with_error(entity)
-        if @current_user
-          render json: entity.errors, status: :unprocessable_entity
-        else
-          render json: { error: "Invalid credentials" }, status: :unauthorized
-        end
+        respond_with_unauthorized if @current_user.blank?
+        render json: entity.errors, status: :unprocessable_entity
+      end
+
+      def respond_with_unauthorized
+        render json: { error: "Invalid credentials" }, status: :unauthorized
+      end
+
+      def respond_with_forbidden
+        render json: { error: "Permission denied" }, status: :forbidden
       end
 
       private

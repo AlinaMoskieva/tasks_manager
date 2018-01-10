@@ -2,10 +2,10 @@ module Api
   module V1
     class CommentsController < Api::V1::ApplicationController
       before_action :set_comment, only: :destroy
-      
+
       def create
-        @comment = Comment.new(comment_params)
-        @comment.user = @current_user
+        return respond_with_unauthorized if @current_user.blank?
+        build_comment
 
         if @comment.save
           render json: @comment
@@ -15,14 +15,11 @@ module Api
       end
 
       def destroy
-        return respond_with_error(@comment) if current_user.blank?
+        return respond_with_unauthorized if @current_user.blank?
+        return respond_with_forbidden unless @comment.created_by?(@current_user)
 
-        if @comment.created_by?(@current_user)
-          @comment.destroy
-          render json: {}, status: :no_content
-        else
-          render json: { error: "Permission denied" }, status: :forbidden
-        end
+        @comment.destroy
+        render json: {}, status: :no_content
       end
 
       private
@@ -32,6 +29,11 @@ module Api
 
         def set_comment
           @comment = Comment.find(params[:id])
+        end
+
+        def build_comment
+          @comment = Comment.new(comment_params)
+          @comment.user = @current_user
         end
     end
   end
