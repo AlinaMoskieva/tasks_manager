@@ -1,7 +1,7 @@
 module Api
   module V1
     class TasksController < Api::V1::ApplicationController
-      before_action :set_task, only: :show
+      before_action :set_task, only: [:show, :destroy]
 
       def create
         @task = Task.new(task_params)
@@ -16,6 +16,13 @@ module Api
 
       def show
         render json: @task
+      end
+
+      def destroy
+        return respond_with_error(@task) if @current_user.blank?
+
+        @task.destroy
+        render json: {}, status: :no_content
       end
 
       private
