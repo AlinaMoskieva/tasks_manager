@@ -7,9 +7,17 @@ module Api
         @current_user = user
       end
 
+      def respond_with_error(entity)
+        if @current_user
+          render json: entity.errors, status: :unprocessable_entity
+        else
+          render json: { error: "Invalid credentials" }, status: :unauthorized
+        end
+      end
+
       private
         def requset_token
-          params[:token].present? || request.headers[:token]
+          params[:token] || request.headers[:token]
         end
 
         def user

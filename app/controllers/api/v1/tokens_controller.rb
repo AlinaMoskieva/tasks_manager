@@ -9,7 +9,7 @@ module Api
         if user && user.valid_password?(params[:password])
           render json: user, serializer: UserSerializer
         else
-          render json: { error: "Invalid credentials" }, status: 401
+          render json: { error: "Invalid credentials" }, status: :unauthorized
         end
       end
 
