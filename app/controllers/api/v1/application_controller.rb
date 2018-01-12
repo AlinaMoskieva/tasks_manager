@@ -8,7 +8,6 @@ module Api
       end
 
       def respond_with_error(entity)
-        respond_with_unauthorized if @current_user.blank?
         render json: entity.errors, status: :unprocessable_entity
       end
 
