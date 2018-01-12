@@ -20,7 +20,7 @@ module Api
         render json: { error: "Permission denied" }, status: :forbidden
       end
 
-      def authenticate_user
+      def authenticate_check
         respond_with_unauthorized if @current_user.blank?
       end
 

@@ -1,7 +1,7 @@
 module Api
   module V1
     class ProjectsController < Api::V1::ApplicationController
-      before_action :authenticate_user, only: [:create, :index, :show, :destroy]
+      before_action :authenticate_check, only: [:create, :index, :show, :destroy]
       before_action :set_project, only: [:show, :destroy]
 
       def create

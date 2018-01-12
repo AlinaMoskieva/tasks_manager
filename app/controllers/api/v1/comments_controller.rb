@@ -1,7 +1,7 @@
 module Api
   module V1
     class CommentsController < Api::V1::ApplicationController
-      before_action :authenticate_user, only: [:create, :destroy]
+      before_action :authenticate_check, only: [:create, :destroy]
       before_action :set_comment, only: :destroy
 
       def create
