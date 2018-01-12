@@ -8,9 +8,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :comments
-      resources :projects
-      resources :tasks
+      resources :comments, only: %i(create destroy)
+      resources :projects, only: %i(create index show destroy)
+      resources :tasks, only: %i(create show destroy)
       resources :tokens, only: %i(create)
     end
   end
