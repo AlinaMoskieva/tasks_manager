@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
       if @project.destroy
         format.html { redirect_to projects_url, notice: "Project was successfully destroyed." }
       else
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.html { redirect_to projects_url, alert: @project.errors.full_messages.first }
       end
     end
   end
