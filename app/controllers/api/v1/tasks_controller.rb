@@ -15,7 +15,7 @@ module Api
       end
 
       def show
-        render json: @task
+        render json: @task, include_comments_count: params[:comments_count]
       end
 
       def destroy
