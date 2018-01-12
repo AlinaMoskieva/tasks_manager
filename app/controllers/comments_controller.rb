@@ -6,18 +6,14 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
-    @comment.task = @task
-    @comment.user = current_user
+    build_comment
 
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @task, notice: "Comment was successfully created." }
-        format.json { render :show, status: :created, location: @task }
       else
         @comments = @task.comments
         format.html { render "tasks/show" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -26,10 +22,8 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to @comment.task, notice: "Comment was successfully updated." }
-        format.json { render :show, status: :ok, location: @comment.task }
       else
         format.html { render :edit }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -39,7 +33,6 @@ class CommentsController < ApplicationController
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to task, notice: "Comment was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
@@ -55,5 +48,11 @@ class CommentsController < ApplicationController
 
     def comment_params
       params.require(:comment).permit(:text)
+    end
+
+    def build_comment
+      @comment = Comment.new(comment_params)
+      @comment.task = @task
+      @comment.user = current_user
     end
 end
