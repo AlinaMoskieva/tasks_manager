@@ -22,7 +22,7 @@ module Api
 
       private
         def requset_token
-          params[:token] || request.headers[:token]
+          request.headers[:token]
         end
 
         def user
