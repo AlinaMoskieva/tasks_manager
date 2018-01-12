@@ -22,6 +22,10 @@ module Api
       end
 
       def show
+        return respond_with_unauthorized if @current_user.blank?
+        return respond_with_forbidden unless @project.created_by?(@current_user)
+
+        render json: @project, include_tasks_count: params[:tasks_count]
       end
 
       def destroy

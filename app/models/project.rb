@@ -7,4 +7,8 @@ class Project < ApplicationRecord
   def created_by?(user)
     self.user == user
   end
+
+  def tasks_amount
+    tasks.count
+  end
 end
