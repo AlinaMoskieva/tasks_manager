@@ -1,12 +1,12 @@
 module Api
   module V1
     class TasksController < Api::V1::ApplicationController
+      before_action :authenticate_user, only: [:create, :destroy]
       before_action :set_task, only: [:show, :destroy]
 
       def create
-        return respond_with_unauthorized if @current_user.blank?
-
         build_task
+
         if @task.save
           render json: @task
         else
@@ -19,8 +19,6 @@ module Api
       end
 
       def destroy
-        return respond_with_unauthorized if @current_user.blank?
-
         @task.destroy
         render json: {}, status: :no_content
       end

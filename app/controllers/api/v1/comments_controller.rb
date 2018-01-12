@@ -1,10 +1,10 @@
 module Api
   module V1
     class CommentsController < Api::V1::ApplicationController
+      before_action :authenticate_user, only: [:create, :destroy]
       before_action :set_comment, only: :destroy
 
       def create
-        return respond_with_unauthorized if @current_user.blank?
         build_comment
 
         if @comment.save
@@ -15,7 +15,6 @@ module Api
       end
 
       def destroy
-        return respond_with_unauthorized if @current_user.blank?
         return respond_with_forbidden unless @comment.created_by?(@current_user)
 
         @comment.destroy
